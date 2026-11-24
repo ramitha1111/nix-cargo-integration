@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "nix.yml"
+# Estimated savings: ~2 min/run
+#
 name: "Nix"
 on:
   workflow_dispatch:
@@ -5,6 +10,10 @@ on:
     branches: [ master ]
   push:
     branches: [ master ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   tests:
     runs-on: ubuntu-latest
